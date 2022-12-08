@@ -13,8 +13,8 @@ const destinationPubkey = 'Your Destination Address');
 
 function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms));  }
 async function main() {
-	const compromisedPubkeyChk  = web3.utils.toChecksumAddress(compromisedPrivkey);
-	const destinationPubkeyChk = web3.utils.toChecksumAddress(compromisedPubkey);
+	const compromisedPubkeyChk  = web3.utils.toChecksumAddress(compromisedPubkey);
+	const destinationPubkeyChk = web3.utils.toChecksumAddress(destinationPubkey);
 	const web3 = new Web3(chosenRPC);
 	const gasGwei = await web3.utils.toWei('30', 'gwei');
 	const ethMin = await web3.utils.toWei(minSweep, 'ether');
@@ -29,7 +29,7 @@ async function main() {
     	try {
 	      let nonce = await web3.eth.getTransactionCount(compromisedPubkeyChk);
 	      let trnsAmount = Number(balance) - (gasGwei * 40000);
-	      let txPrice = { 
+	      let tx = { 
 		 	'chainId': 1,
 		      	'nonce': Number(nonce) + 1,
 		      	'to': destinationPubkeyChk,
@@ -37,7 +37,7 @@ async function main() {
 		        'gas': 41000,
 		        'gasPrice': Number(gasGwei)};
 		
-	      let signedTx = await web3.eth.accounts.signTransaction(txPrice, compromisedPrivkeyChk); // private key
+	      let signedTx = await web3.eth.accounts.signTransaction(tx, compromisedPrivkey);
 	      let txHash = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
 	      let amntSent = await web3.utils.fromWei(String(trnsAmnt), 'ether');
 	      done++;
