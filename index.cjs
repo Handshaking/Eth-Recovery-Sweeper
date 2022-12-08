@@ -4,7 +4,7 @@ const minSweep = '0.004';
 
 
 
-const chosenRpc = 'Your EVM RPC'
+const chosenRPC = 'Your EVM RPC'
 const compromisedPrivkey = 'Your Compromised Privkey';
 const compromisedPubkey  = 'Your Compromised Pubkey');
 const destinationPubkey = 'Your Destination Address');
